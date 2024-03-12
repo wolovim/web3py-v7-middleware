@@ -24,9 +24,9 @@ class CustomAsyncMiddleware(Web3Middleware):
 class CustomWrapAsyncMiddleware(Web3Middleware):
     async def async_wrap_make_request(self, make_request):
         async def middleware(method, params):
-            print("∆∆∆ custom wrap: pre-request")
-            response = await make_request(method, params)  # make the request
-            print("∆∆∆ custom wrap: post-request")
+            print(f"∆∆∆ custom wrap: pre-request {method}")
+            response = await make_request(method, params)
+            print(f"∆∆∆ custom wrap: post-request {method}")
             return response
 
         return middleware
@@ -39,7 +39,7 @@ w3.middleware_onion.add(CustomAsyncMiddleware, name="custom_async_middleware")
 w3.middleware_onion.add(CustomWrapAsyncMiddleware, name="custom_wrap_async_middleware")
 
 print("∆∆∆ middleware onion:")
-print([m[1] for m in w3.middleware_onion.middlewares])
+print([m[1] for m in w3.middleware_onion.middleware])
 
 
 async def main():
@@ -58,9 +58,9 @@ web3.py version: $7.0.0b1
 middleware onion:
 ['custom_wrap_async_middleware', 'custom_async_middleware', 'gas_price_strategy', 'ens_name_to_address', 'attrdict', 'validation', 'gas_estimate']
 ∆∆∆ starting get_block...
-∆∆∆ custom wrap: pre-request
+∆∆∆ custom wrap: pre-request eth_getBlockByNumber
 ∆∆∆ custom: pre-request eth_getBlockByNumber
 ∆∆∆ custom: post-response eth_getBlockByNumber
-∆∆∆ custom wrap: post-request
+∆∆∆ custom wrap: post-request eth_getBlockByNumber
 ∆∆∆ ...finished get_block
 """

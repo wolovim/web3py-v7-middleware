@@ -4,7 +4,7 @@ Quick syncronous and asynchronous examples of the middleware pattern introduced 
 
 To run the examples:
 
-- install deps: `pip install web3==v7.0.0b1 python-dotenv`
+- install deps: `pip install web3==v7.0.0b2 python-dotenv`
 - add your RPC URL to the `.env` file
 - run either `python sync.py` or `python async.py`
 
